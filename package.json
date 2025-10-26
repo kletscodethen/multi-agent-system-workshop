@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ex01": "npx tsx llm/exercise-01/solution.ts",
-    "ex02": "npx tsx llm/exercise-02/solution.ts"
+    "ex01": "npx tsx exercises/exercise-01/solution.ts",
+    "ex02": "npx tsx exercises/exercise-02/solution.ts"
   },
   "author": "",
   "license": "ISC",
