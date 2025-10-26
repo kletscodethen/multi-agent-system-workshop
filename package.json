@@ -1,0 +1,22 @@
+{
+  "name": "multi-agent-system-workshop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ex01": "npx tsx llm/exercise-01/solution.ts",
+    "ex02": "npx tsx llm/exercise-02/solution.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google/genai": "^1.27.0",
+    "dotenv": "^17.2.3",
+    "openmeteo": "^1.2.1",
+    "serpapi": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.1"
+  }
+}
