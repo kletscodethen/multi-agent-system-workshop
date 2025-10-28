@@ -12,7 +12,7 @@ Learn the minimal loop of sending a prompt to an LLM and receiving a response
 - Adjust configuration options
 - Experiment with stream mode
 
-## Short exercise
+## Short exercise ✨
 
 Try different models and compare:
 - Latency (how fast you get first token & full answer)

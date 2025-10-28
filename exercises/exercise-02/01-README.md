@@ -9,7 +9,7 @@ Teach an LLM to call real functions and use their results in its responses
 3. Provide the declaration when creating the model/session
 4. Modify the loop
 
-## Short exercise
+## Short exercise ✨
 
 Provide the LLM access to a Weather tool using the same framework:
 

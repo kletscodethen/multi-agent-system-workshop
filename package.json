@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "ex01": "npx tsx exercises/exercise-01/index.ts",
     "ex02": "npx tsx exercises/exercise-02/index.ts",
-    "ex03": "npx tsx exercises/exercise-03/index.ts"
+    "ex03": "npx tsx exercises/exercise-03/index.ts",
+    "ex04": "npx tsx exercises/exercise-04/index.ts",
+    "ex05": "npx tsx exercises/exercise-05/index.ts"
   },
   "author": "",
   "license": "ISC",
