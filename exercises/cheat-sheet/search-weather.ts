@@ -1,7 +1,6 @@
 import { fetchWeatherApi } from "openmeteo";
 
-export async function searchWeather({ location, days = 1 }: { location: string; days?: number }) {
-  // ⬇️ Geocode the place name to lat/lon
+const fetchCoordinates = async (location: string) => {
   const geo = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(location.trim())}&count=1&language=en&format=json`
   ).then(r => r.json());
@@ -9,7 +8,15 @@ export async function searchWeather({ location, days = 1 }: { location: string; 
   const coords = geo?.results?.[0];
   if (!coords) return null;
 
-  // ⬇️ Ask Open-Meteo for "current" weather
+  return coords;
+}
+
+export async function searchWeather({ location, days = 1 }: { location: string; days?: number }) {
+  const coords = await fetchCoordinates(location)
+
+  if (!coords) return null;
+
+  // Ask Open-Meteo for "current" weather
   const res = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", {
     latitude: [coords.latitude],
     longitude: [coords.longitude],
@@ -28,8 +35,7 @@ export async function searchWeather({ location, days = 1 }: { location: string; 
 }
 
 async function main() {
-  const result = await searchWeather({ location: "London", days: 14 })
-  console.log(result)
+  console.log(await searchWeather({ location: "London", days: 14 }))
 }
 
 main()

@@ -4,14 +4,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ex01": "npx tsx exercises/exercise-01/solution.ts",
-    "ex02": "npx tsx exercises/exercise-02/solution.ts"
+    "ex01": "npx tsx exercises/exercise-01/index.ts",
+    "ex02": "npx tsx exercises/exercise-02/index.ts",
+    "ex03": "npx tsx exercises/exercise-03/index.ts"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@google/genai": "^1.27.0",
+    "@pinecone-database/pinecone": "^6.1.2",
     "dotenv": "^17.2.3",
     "openmeteo": "^1.2.1",
     "serpapi": "^2.2.1"

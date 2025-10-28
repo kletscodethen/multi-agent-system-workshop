@@ -46,12 +46,12 @@ const searchGoogleTool: FunctionDeclaration = {
  * Chat with Gemini
  */
 async function chat(prompt: string) {
-    // ⬇️ Add user message to history
+    // Add user message to history
     conversationHistory.push({ role: "user", parts: [{ text: prompt }] })
 
     const MAX_TURNS = 10; // Safety limit to prevent infinite loops
 
-    // ⬇️ Loop until llm provides final answer or hits max turns
+    // Loop until llm provides final answer or hits max turns
     for (let turn = 0; turn < MAX_TURNS; turn++) {
         const res = await googleClient.models.generateContent({
             model: "gemini-2.0-flash-exp",
@@ -63,18 +63,18 @@ async function chat(prompt: string) {
 
         const parts = res.candidates?.[0]?.content?.parts ?? [];
 
-        // ⬇️ Get first text part
+        // Get first text part
         const text = parts.find((p: any) => p.text)?.text;
         if (text) {
             console.log(`\nAssistant: ${text}`); // backticks
             conversationHistory.push({ role: "model", parts: [{ text }] });
         }
 
-        // ⬇️ Collect function calls
+        // Collect function calls
         const fnCalls = parts.filter((p: any) => p.functionCall).map((p: any) => p.functionCall);
         if (fnCalls.length === 0) break;
 
-        // ⬇️ Run tools
+        // Run tools
         const toolResponses: any[] = [];
         for (const fnCall of fnCalls) {
             console.log(`\nCalling ${fnCall.name}()...`);
@@ -85,7 +85,7 @@ async function chat(prompt: string) {
             }
         }
 
-        // ⬇️ Add tool responses back to the conversation
+        // Add tool responses back to the conversation
         if (toolResponses.length > 0) {
             conversationHistory.push({ role: "tool", parts: toolResponses });
             console.log(`\nAgent is thinking...`);

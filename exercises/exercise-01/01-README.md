@@ -1,6 +1,6 @@
 # Exercise 1 — Interacting with an LLM (Gemini)
 
-Learn the minimal loop of sending a prompt to an LLM and receiving a response.
+Learn the minimal loop of sending a prompt to an LLM and receiving a response
 
 ## Steps
 1. Connect via SDK - `@google/genai`

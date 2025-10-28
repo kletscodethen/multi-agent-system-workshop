@@ -11,7 +11,7 @@ const googleClient = new GoogleGenAI({
 const conversationHistory: Array<{ role: string; parts: Array<{ text: string }> }> = []
 
 async function chat(prompt: string) {
-    // ⬇️ Add user message to history
+    // Add user message to history
     conversationHistory.push({ role: "user", parts: [{ text: prompt }] })
 
     const res = await googleClient.models.generateContent({
@@ -24,7 +24,7 @@ async function chat(prompt: string) {
 
     const response = res.candidates[0].content.parts[0].text
 
-    // ⬇️Add assistant response to history
+    // Add assistant response to history
     conversationHistory.push({ role: "model", parts: [{ text: response }] })
 
     console.log(`\nAssistant: ${response}\n`)
