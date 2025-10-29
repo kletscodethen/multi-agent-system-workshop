@@ -21,4 +21,6 @@ async function chat(prompt: string) {
     // TODO
 }
 
-main(chat)
+if (require.main === module) {
+    main(chat).catch(console.error);
+}

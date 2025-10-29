@@ -55,4 +55,6 @@ async function main() {
     askQuestion()
 }
 
-main()
+if (require.main === module) {
+    main().catch(console.error);
+}

@@ -38,4 +38,6 @@ const main = async () => {
     console.log(await searchFromVectorDB("Tell me a fact about royalty"));
 }
 
-main();
+if (require.main === module) {
+    main().catch(console.error);
+}

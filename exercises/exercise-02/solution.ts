@@ -12,7 +12,7 @@ const conversationHistory: any[] = [];
 /**
  * Search Google for information.
  */
-async function searchGoogle({ query }: { query: string }) {
+export async function searchGoogle({ query }: { query: string }) {
     const MAX_RESULTS = 10;
 
     const data = await getJson({ engine: "google", api_key: process.env.SERP_API_KEY, q: query.trim(), num: MAX_RESULTS });
@@ -27,7 +27,7 @@ async function searchGoogle({ query }: { query: string }) {
 /**
  * Declare the tool to the LLM
  */
-const searchGoogleTool: FunctionDeclaration = {
+export const searchGoogleDeclaration: FunctionDeclaration = {
     name: "searchGoogle",
     description: "Search Google for information.",
     parameters: {
@@ -57,35 +57,39 @@ async function chat(prompt: string) {
             model: "gemini-2.0-flash-exp",
             contents: conversationHistory,
             config: {
-                tools: [{ functionDeclarations: [searchGoogleTool] }],
+                tools: [{ functionDeclarations: [searchGoogleDeclaration] }],
             },
         })
 
+        // Get response parts
         const parts = res.candidates?.[0]?.content?.parts ?? [];
-
-        // Get first text part
         const text = parts.find((p: any) => p.text)?.text;
+
+        // Add response to conversation
         if (text) {
-            console.log(`\nAssistant: ${text}`); // backticks
+            console.log(`\nAssistant: ${text}`);
             conversationHistory.push({ role: "model", parts: [{ text }] });
         }
 
-        // Collect function calls
+        // Check for function calls
         const fnCalls = parts.filter((p: any) => p.functionCall).map((p: any) => p.functionCall);
         if (fnCalls.length === 0) break;
 
         // Run tools
         const toolResponses: any[] = [];
-        for (const fnCall of fnCalls) {
-            console.log(`\nCalling ${fnCall.name}()...`);
+        for (const fn of fnCalls) {
+            console.log(`\nCalling ${fn.name}()...`);
 
-            if (fnCall.name === "searchGoogle") {
-                const searchResults = await searchGoogle(fnCall.args as { query: string });
-                toolResponses.push({ functionResponse: { name: fnCall.name, response: { results: searchResults } } });
+            if (fn.name === "searchGoogle") {
+                // Execute the function with its arguments
+                const searchResults = await searchGoogle(fn.args as { query: string });
+
+                // Package the result in Gemini's expected format
+                toolResponses.push({ functionResponse: { name: fn.name, response: { results: searchResults } } });
             }
         }
 
-        // Add tool responses back to the conversation
+        // Add results back to conversation
         if (toolResponses.length > 0) {
             conversationHistory.push({ role: "tool", parts: toolResponses });
             console.log(`\nAgent is thinking...`);
@@ -93,4 +97,6 @@ async function chat(prompt: string) {
     }
 }
 
-main(chat)
+if (require.main === module) {
+    main(chat).catch(console.error);
+}
