@@ -20,6 +20,15 @@ export const ideaGenerator = Agent({
     toolBox: [searchGoogleTool],
 });
 
+// Create agents with their tools
+export const itineraryBuilder = Agent({
+  persona: {
+    role: "Itinerary Builder",
+    backstory: "You are a detail-oriented itinerary specialist who ONLY works with verified, researched information. You refuse to create itineraries with generic or made-up details.",
+    goal: "Build an itinerary based ONLY on successfully researched activities. If the research phase failed or returned errors, you must acknowledge this and refuse to generate a fake itinerary.",
+  },
+});
+
 // Create tasks with clear expected outputs
 export const ideationTask = Task({
     agent: ideaGenerator,
@@ -28,9 +37,16 @@ export const ideationTask = Task({
     expectedOutput: "A list of 5 types of general activities they could do",
 });
 
+export const itineraryTask = Task({
+  agent: itineraryBuilder,
+  description: "Build an itinerary based on activities and dates.",
+  expectedOutput:
+    "JSON object with itinerary details { activities: [ { name: string, description: string, avgPrice: string, link: string } ] }. ",
+});
+
 
 // Orchestrator for multiple agents
-async function executeCrew(config: {
+export async function executeCrew(config: {
     initialRequest: string
     agents: ReturnType<typeof Agent>[]
     tasks: ReturnType<typeof Task>[]
@@ -60,8 +76,8 @@ async function executeCrew(config: {
 async function chat(prompt: string) {
     await executeCrew({
         initialRequest: prompt,
-        agents: [ideaGenerator],
-        tasks: [ideationTask],
+        agents: [ideaGenerator, itineraryBuilder],
+        tasks: [ideationTask, itineraryTask],
     });
 };
 

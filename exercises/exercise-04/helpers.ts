@@ -69,12 +69,16 @@ export const runAgentWithTools = async (
         // Add response to conversation
         if (text) {
             console.log(`\nAssistant: ${text.trim()}`);
+            finalAnswer = text.trim();
             conversationHistory.push({ role: "model", parts: [{ text }] });
         }
 
         // Check for function calls
         const fnCalls = parts.filter((p: any) => p.functionCall).map((p: any) => p.functionCall);
-        if (fnCalls.length === 0) break;
+        if (fnCalls.length === 0) {
+            if (finalAnswer) return finalAnswer;
+            break;
+        }
 
         // Run tools
         const toolImplementations = Object.assign({}, ...toolBox?.map((tool) => tool.implementation) || []);
@@ -107,7 +111,7 @@ export const runAgentWithTools = async (
 // Agent with tool-usage conversation loop
 export const Agent = (config: {
     persona: Persona;
-    toolBox: Tool[] | undefined;
+    toolBox?: Tool[];
 }) => ({
     persona: config.persona,
     toolBox: config.toolBox,
