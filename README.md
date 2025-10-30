@@ -1,6 +1,6 @@
 # Multi-Agent System Workshop
 
-Welcome to the Multi-Agent System Workshop! This hands-on workshop will guide you through building a mult- agent system with TypeScript.
+Welcome to the Multi-Agent System Workshop! This hands-on workshop will guide you through building a multi- agent system with TypeScript.
 
 ## 🚀 Getting Started
 
