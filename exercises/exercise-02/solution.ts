@@ -7,7 +7,7 @@ const googleClient = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
 })
 
-const conversationHistory: any[] = [];
+const conversationHistory: Array<{ role: string; parts: Array<{ text: string }> }> = []
 
 /**
  * Search Google for information.
@@ -63,12 +63,12 @@ async function chat(prompt: string) {
 
         // Get response parts
         const parts = res.candidates?.[0]?.content?.parts ?? [];
-        const text = parts.find((p: any) => p.text)?.text;
+        const response = parts.find((p: any) => p.text)?.text;
 
         // Add response to conversation
-        if (text) {
-            console.log(`\nAssistant: ${text}`);
-            conversationHistory.push({ role: "model", parts: [{ text }] });
+        if (response) {
+            console.log(`\nAssistant: ${response}`);
+            conversationHistory.push({ role: "model", parts: [{ text: response }] });
         }
 
         // Check for function calls

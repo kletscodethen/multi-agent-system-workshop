@@ -7,18 +7,41 @@ const googleClient = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
 })
 
-const conversationHistory: any[] = [];
+const conversationHistory: Array<{ role: string; parts: Array<{ text: string }> }> = []
 
+/**
+ * Search Google for information.
+ */
 async function searchGoogle({ query }: { query: string }) {
-    // TODO
 };
 
-const searchGoogleTool: FunctionDeclaration = {
-    // TODO
+/**
+ * Declare the tool to the LLM
+ */
+const searchGoogleDeclaration: FunctionDeclaration = {
 };
 
+/**
+ * Chat with Gemini
+ */
 async function chat(prompt: string) {
-    // TODO
+    // Add user message to history
+    conversationHistory.push({ role: "user", parts: [{ text: prompt }] })
+
+    const res = await googleClient.models.generateContent({
+        model: "gemini-2.0-flash-exp",
+        contents: conversationHistory,
+
+        // https://ai.google.dev/api/generate-content
+        config: {},
+    })
+
+    const response = res.candidates[0].content.parts[0].text
+
+    // Add assistant response to history
+    conversationHistory.push({ role: "model", parts: [{ text: response }] })
+
+    console.log(`\nAssistant: ${response}\n`)
 }
 
 if (require.main === module) {
