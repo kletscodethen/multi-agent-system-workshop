@@ -11,7 +11,7 @@ Build a multi-agent system where specialised agents work together to solve bigge
 
 ## Short exercise ✨
 
-Extend the travel recommendation workflow
+Extend the travel recommendation workflow:
 
-- Define additional agent personas for different aspects of travel planning
-- Create new tools for searching travel information
+- Define the Itinerary builder agent and add to the workflow
+- (Optional) Create new tools for searching travel information
