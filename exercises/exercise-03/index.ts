@@ -33,9 +33,6 @@ const main = async () => {
     for (const chunk of chunks) {
         await ingestDataToVectorDB(chunk);
     }
-
-    // search
-    console.log(await searchFromVectorDB("Tell me a fact about royalty"));
 }
 
 if (require.main === module) {

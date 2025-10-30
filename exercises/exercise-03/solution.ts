@@ -79,7 +79,8 @@ const main = async () => {
         "Stars are the suns of other stars",
         "Planets are the moons of other planets",
         "France is a country in Europe",
-        "Fruits are the food of animals"
+        "Fruits are the food of animals",
+        "Kings are the rulers of countries",
     ]
     for (const chunk of chunks) {
         await ingestDataToVectorDB(chunk);
