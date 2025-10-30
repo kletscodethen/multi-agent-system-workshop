@@ -1,4 +1,4 @@
-# Exercise 2 - Provide LLM tools
+# Exercise 2 - Provide LLM tools - 30 minutes
 
 Teach an LLM to call real functions and use their results in its responses
 
@@ -17,8 +17,9 @@ Provide the LLM access to a Weather tool using the same framework:
 - Add the tool declaration to the model
 - Update the loop to detect and execute tool calls, then feed results back into context
 
-Interesting packages: 
-* https://www.npmjs.com/package/openmeteo
-* https://www.npmjs.com/package/openweathermap
-* https://www.npmjs.com/package/eventbrite
-* https://serpapi.com/google-events-api
+Interesting packages:
+
+- https://www.npmjs.com/package/openmeteo
+- https://www.npmjs.com/package/openweathermap
+- https://www.npmjs.com/package/eventbrite
+- https://serpapi.com/google-events-api

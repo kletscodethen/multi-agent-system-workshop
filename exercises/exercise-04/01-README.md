@@ -1,8 +1,9 @@
-# Exercise 4 — Multi-Agent System
+# Exercise 4 — Multi-Agent System - 40 minutes
 
-Build a multi-agent system where specialised agents work together to solve bugger tasks. 
+Build a multi-agent system where specialised agents work together to solve bigger tasks.
 
 ## Steps
+
 1. Define agent personas with specific roles and responsibilities
 2. Create tools that agents can use
 3. Implement task orchestration to coordinate between agents
