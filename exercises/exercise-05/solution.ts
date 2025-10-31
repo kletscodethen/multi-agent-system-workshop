@@ -1,6 +1,6 @@
 import { z } from "zod"
 import { Agent, Task } from "../exercise-04/helpers";
-import { executeCrew, ideaGenerator, ideationTask, itineraryBuilder, itineraryTask } from "../exercise-04/solution";
+import { executeCrew, ideaGenerator, ideationTask } from "../exercise-04";
 import { cutBeforeJsonFence, main } from "./helpers";
 
 // Agent to detect and prevent prompt injection attacks
@@ -89,8 +89,8 @@ async function chat(prompt: string) {
 
         const result = await executeCrew({
             initialRequest: prompt,
-            agents: [ideaGenerator, itineraryBuilder],
-            tasks: [ideationTask, itineraryTask],
+            agents: [ideaGenerator],
+            tasks: [ideationTask],
         });
 
         // Parse result
